@@ -1,6 +1,5 @@
 # The FROM will be replaced when building in OpenShift
-#FROM rhel7/rhel
-FROM centos:7
+FROM rhel7/rhel
 
 MAINTAINER Siamak Sadeghianfar <ssadeghi@redhat.com>
 
@@ -10,11 +9,11 @@ RUN yum clean all && \
     yum-config-manager --disable rhel* 1>/dev/null && \
     yum-config-manager --enable rhel-7-server-rpms && \
     yum-config-manager --enable rhel-7-server-ose-3.2-rpms && \
-    export INSTALL_PKGS="nss_wrapper java-1.8.0-openjdk-headless \
+    export INSTALL_PKGS="java-1.8.0-openjdk-headless \
         java-1.8.0-openjdk-devel gettext tar git" && \
     yum clean all && \
     yum install -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
+    rpm -V $INSTALL_PKGS nss_wrapper && \
     yum clean all && \
     mkdir -p /var/lib/jenkins && \
     chown -R 1001:0 /var/lib/jenkins && \
