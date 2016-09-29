@@ -5,7 +5,7 @@ MAINTAINER Siamak Sadeghianfar <ssadeghi@redhat.com>
 
 # Install headless Java
 USER root
-ADD nss_wrapper-1.1.3-1.el7.x86_64.rpm
+COPY nss_wrapper-1.1.3-1.el7.x86_64.rpm /tmp
 RUN yum clean all && \
     yum-config-manager --disable rhel* 1>/dev/null && \
     yum-config-manager --enable rhel-7-server-rpms && \
@@ -15,7 +15,7 @@ RUN yum clean all && \
     yum clean all && \
     yum install -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
-    rpm -ivh nss_wrapper-1.1.3-1.el7.x86_64.rpm && \
+    rpm -ivh /tmp/nss_wrapper-1.1.3-1.el7.x86_64.rpm && \
     yum clean all && \
     mkdir -p /var/lib/jenkins && \
     chown -R 1001:0 /var/lib/jenkins && \
