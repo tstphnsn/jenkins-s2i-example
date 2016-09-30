@@ -21,6 +21,9 @@ RUN yum clean all && \
     chown -R 1001:0 /var/lib/jenkins && \
     chmod -R g+w /var/lib/jenkins
 
+# Copy cacerts with self-signed cert
+COPY cacerts /usr/lib/jvm/java-1.8.0-openjdk-devel/cacerts
+
 # Copy the entrypoint
 COPY configuration/* /var/lib/jenkins/
 USER 1001
